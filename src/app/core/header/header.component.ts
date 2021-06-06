@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
 
@@ -9,12 +10,17 @@ import { UserService } from '../user/user.service';
 })
 export class HeaderComponent {
 
-  user$!: Subscription;
-  user!: User;
+  user$: Observable<User | null>;
 
-  constructor(private userService: UserService) {
-    this.user$ = this.userService.getUser()
-    .subscribe(user => this.user = user);
-    console.log(this.user);
+  constructor(
+    private userService: UserService,
+    private router: Router) {
+    this.user$ = this.userService.getUser();
   }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['']);
+  }
+
 }
