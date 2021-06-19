@@ -3,8 +3,7 @@ import { Photo } from '../../photo/photo';
 
 @Component({
   selector: 'app-photos',
-  templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.scss']
+  templateUrl: './photos.component.html'
 })
 export class PhotosComponent implements OnChanges {
 
