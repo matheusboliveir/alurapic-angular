@@ -4,7 +4,7 @@ export interface Photo {
     url: string;
     description: string;
     allowComments: boolean;
-    lies: number;
+    likes: number;
     comments: number;
     userId:number
   }
