@@ -17,6 +17,8 @@ Projeto criado durante o curso de Angular da Alura, conhecimentos aplicados no p
  - RxJs
  - QueryParams
 
+ Servidores do projeto estão na pasta servidores, rode o comando `npm install` na pasta de cada servidor para instalar as dependências e rode o comando `npm start` para inicializa-los.
+
 Projeto gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 11.2.10.
 
 ## Screenshot
