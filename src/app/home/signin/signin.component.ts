@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { PlataformDetectorService } from 'src/app/core/plataform-detector/plataform-detector.service';
 
@@ -10,6 +11,7 @@ import { PlataformDetectorService } from 'src/app/core/plataform-detector/plataf
 })
 export class SigninComponent implements OnInit {
 
+  fromUrl!: string;
   loginForm!: FormGroup;
 
   constructor(
@@ -17,9 +19,12 @@ export class SigninComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private renderer: Renderer2,
-    private platformDetection: PlataformDetectorService ) { }
+    private platformDetection: PlataformDetectorService,
+    private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activateRoute.queryParams
+    .subscribe(params => this.fromUrl = params.fromUrl)
     this.loginForm = this.formBuilder.group({
       userName:['', Validators.required],
       password: ['', Validators.required ]
@@ -33,7 +38,10 @@ export class SigninComponent implements OnInit {
     const password = this.loginForm.get('password')?.value;
 
     this.auth.auth(userName, password).subscribe(
-      () => this.router.navigate(['user', userName]),
+      () => this.fromUrl
+          ? this.router.navigateByUrl(this.fromUrl)
+          : this.router.navigate(['user', userName])
+          ,
       err => {
         console.log(err);
         this.loginForm.reset();
